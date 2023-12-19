@@ -16,7 +16,7 @@ nohup python ISDARTS.py \
 	--config_path configs/nas-benchmark/algos/DARTS.config \
 	--search_space_name nas-bench-201 \
 	--model_config configs/search-archs/DARTS-NASBENCH.config \
-	--arch_nas_dataset NAS-Bench-201-v1_0-e61699.pth \
 	--shrink_steps 4 \
 	--shrink_intervals 2 \
+	--total_epochs 30 \
 	>${log}.log 2>&1 &

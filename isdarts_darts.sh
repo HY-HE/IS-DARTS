@@ -21,7 +21,8 @@ else
   echo 'Unknown dataset: '${dataset}
 fi
 
-nohup python ISDARTS.py --dataset ${dataset} \
+nohup python ISDARTS.py \
+  --dataset ${dataset} \
 	--data_path ${xpath} \
 	--gradient_clip ${clip} \
 	--config_path configs/search-opts/DARTS-NASNet-${base}.config \
@@ -29,4 +30,5 @@ nohup python ISDARTS.py --dataset ${dataset} \
 	--model_config configs/search-archs/DARTS-NASNet.config \
 	--shrink_steps 7 \
 	--shrink_intervals 3 \
+	--total_epochs 50 \
 	>${log}.log 2>&1 &

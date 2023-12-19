@@ -125,8 +125,10 @@ def main(xargs):
 
     train_data, valid_data, xshape, class_num = get_datasets(xargs.dataset, xargs.data_path, -1)
     config = load_config(xargs.config_path, {"class_num": class_num, "xshape": xshape}, logger)
-    shrink_epoch = list(range(  # set aside 1 epoch
-        config.epochs - 1, config.epochs - 1 - args.shrink_steps * args.shrink_intervals, -args.shrink_intervals))
+    shrink_epoch = list(range(
+        args.total_epochs - args.shrink_steps * args.shrink_intervals,
+        args.total_epochs,
+        args.shrink_intervals))
     logger.log("{:}".format(shrink_epoch))
 
     if xargs.dataset.startswith("cifar"):
@@ -192,7 +194,7 @@ def main(xargs):
 
     # start training
     start_time, search_time, epoch_time, total_epoch = (
-        time.time(), AverageMeter(), AverageMeter(), config.epochs + config.warmup)
+        time.time(), AverageMeter(), AverageMeter(), args.total_epochs + config.warmup)
     for epoch in range(start_epoch, total_epoch):
         w_scheduler.update(epoch, 0.0)
         need_time = "Time Left: {:}".format(convert_secs2time(epoch_time.val * (total_epoch - epoch), True))
@@ -299,6 +301,7 @@ if __name__ == "__main__":
 
     parser.add_argument("--shrink_steps", type=int, default=4, help="steps to shrink supernet to subnet")
     parser.add_argument("--shrink_intervals", type=int, default=2, help="epochs between shrink steps")
+    parser.add_argument("--total_epochs", type=int, default=30, help="redefine the searching epoch")
 
     args = parser.parse_args()
     if args.rand_seed is None or args.rand_seed < 0:

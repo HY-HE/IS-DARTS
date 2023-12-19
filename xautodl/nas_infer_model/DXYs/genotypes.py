@@ -165,7 +165,7 @@ ISDARTS = Genotype(
             (('sep_conv_3x3', 0), ('sep_conv_5x5', 2))],
     normal_concat=[2, 3, 4, 5],
     reduce=[(('sep_conv_5x5', 0), ('max_pool_3x3', 1)),
-            (('dil_conv_5x5', 1), ('sep_conv_5x5', 2)),
+            (('dil_conv_5x5', 2), ('sep_conv_5x5', 2)),
             (('sep_conv_5x5', 0), ('sep_conv_5x5', 2)),
             (('dil_conv_5x5', 0), ('sep_conv_5x5', 2))],
     reduce_concat=[2, 3, 4, 5],
@@ -180,7 +180,7 @@ Networks = {'DARTS_V1': DARTS_V1,
             'GDAS_V1' : GDAS_V1,
             'PNASNet' : PNASNet,
             'SETN'    : SETN,
-            'ISDARTS'   : ISDARTS,
+            'ISDARTS' : ISDARTS,
            }
 
 # This function will return a Genotype from a dict.
